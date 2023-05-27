@@ -9,3 +9,9 @@ export class OrderStatus extends BaseEntity {
   @Column({ length: 255 })
   order_status_name: string;
 }
+
+export enum OrderStatusEnum {
+  PENDING = 1,
+  COMPLETED = 2,
+  CANCELED = 3,
+}

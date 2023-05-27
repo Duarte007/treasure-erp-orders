@@ -24,13 +24,10 @@ export class OrderItem extends BaseEntity {
   @Column({ type: 'decimal', precision: 10, scale: 2 })
   price: number;
 
-  @Column({ default: () => 'CURRENT_TIMESTAMP' })
-  created_at: Date;
-
-  @Column({ default: () => 'CURRENT_TIMESTAMP' })
-  updated_at: Date;
-
   @ManyToOne(() => Order, (order) => order.orderItems)
   @JoinColumn({ name: 'order_id' })
   order: Order;
+
+  @Column()
+  order_id: number;
 }

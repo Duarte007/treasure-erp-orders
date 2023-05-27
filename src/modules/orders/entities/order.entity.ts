@@ -32,6 +32,9 @@ export class Order extends BaseEntity {
   @JoinColumn({ name: 'order_status_id' })
   orderStatus: OrderStatus;
 
+  @Column()
+  order_status_id: number;
+
   @OneToMany(() => OrderItem, (orderItem) => orderItem.order)
   orderItems: OrderItem[];
 
@@ -61,7 +64,7 @@ export class OrderRecord {
   order_uuid: string;
   customer: OrderCustomerRecord;
   payment: OrderPaymentRecord;
-  items: OrderItemsRecord;
+  items: OrderItemsRecord[];
   date: Date;
   value: number;
 }

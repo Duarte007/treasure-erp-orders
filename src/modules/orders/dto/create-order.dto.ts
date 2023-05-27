@@ -63,10 +63,10 @@ export class CreateOrderDTO {
   @IsDefined()
   @ValidateNested()
   customer: OrderCustomerDTO;
-  @ApiProperty({ type: OrderPaymentDTO, isArray: true })
+  @ApiProperty({ type: OrderPaymentDTO })
   @IsDefined()
   @ValidateNested()
-  payment: OrderPaymentDTO[];
+  payment: OrderPaymentDTO;
   @ApiProperty({ type: OrderItemsDTO, isArray: true })
   @IsDefined()
   @ValidateNested()
