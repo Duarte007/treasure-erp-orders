@@ -3,6 +3,7 @@ import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import * as morgan from 'morgan';
 import { AppModule } from './app.module';
+import { DITokens } from './common/enums/DITokens';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -21,6 +22,7 @@ async function bootstrap() {
   const port = +process.env.PORT || 3000;
   await app.listen(port).then(() => {
     Logger.log(`>>>>> API running on port ${port}`);
+    app.useLogger(app.get(DITokens.LoggerProvider));
   });
 }
 bootstrap();

@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { OrdersAdapter } from '../adapters/orders.adapter';
 import { CreateOrderDTO } from '../dto/create-order.dto';
 import { UpdateOrderDTO } from '../dto/update-order.dto';
@@ -9,11 +9,22 @@ export class OrdersService {
   constructor(private readonly ordersRepository: OrdersRepository) {}
 
   async create(createOrderDto: CreateOrderDTO) {
-    const orderToSave = OrdersAdapter.toDatabase(createOrderDto);
+    try {
+      const orderToSave = OrdersAdapter.toDatabase(createOrderDto);
 
-    const order = await this.ordersRepository.createOrder(orderToSave);
+      Logger.log({ message: 'New order', createOrderDto, orderToSave });
 
-    return order;
+      const order = await this.ordersRepository.createOrder(orderToSave);
+
+      return order;
+    } catch (error) {
+      Logger.error({
+        message: 'Error creating order',
+        error: error.response?.data || error.message,
+      });
+
+      throw error;
+    }
   }
 
   findAll() {
