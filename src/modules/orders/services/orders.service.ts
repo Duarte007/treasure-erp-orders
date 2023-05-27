@@ -3,10 +3,14 @@ import { OrdersAdapter } from '../adapters/orders.adapter';
 import { CreateOrderDTO } from '../dto/create-order.dto';
 import { UpdateOrderDTO } from '../dto/update-order.dto';
 import { OrdersRepository } from '../repositories/orders.repository';
+import { OrdersEventProvider } from './orders.events.service';
 
 @Injectable()
 export class OrdersService {
-  constructor(private readonly ordersRepository: OrdersRepository) {}
+  constructor(
+    private readonly ordersRepository: OrdersRepository,
+    private readonly ordersEventProvider: OrdersEventProvider,
+  ) {}
 
   async create(createOrderDto: CreateOrderDTO) {
     try {
@@ -15,6 +19,10 @@ export class OrdersService {
       Logger.log({ message: 'New order', createOrderDto, orderToSave });
 
       const order = await this.ordersRepository.createOrder(orderToSave);
+
+      const orderEvent = OrdersAdapter.toEvent(createOrderDto, orderToSave);
+
+      this.ordersEventProvider.publishNewOrderEvent(orderEvent);
 
       return order;
     } catch (error) {
