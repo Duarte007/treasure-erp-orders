@@ -16,7 +16,6 @@ export class OrderPaymentEvent {
 }
 
 export class OrderEvent {
-  order_id?: string;
   order_uuid: string;
   customer: OrderCustomerEvent;
   payment: OrderPaymentEvent;

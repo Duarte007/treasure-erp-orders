@@ -27,5 +27,5 @@ deploy: push check-env
 		--allow-unauthenticated \
 		--platform managed \
 		--region us-east1 \
-		--set-env-vars=NODE_ENV=${NODE_ENV},DB_HOST=${DB_HOST},DB_USERNAME=${DB_USERNAME},DB_PASSWORD=${DB_PASSWORD},DB_DATABASE=${DB_DATABASE} \
+		--set-env-vars=NODE_ENV=${NODE_ENV},DB_HOST=${DB_HOST},DB_USERNAME=${DB_USERNAME},DB_PASSWORD=${DB_PASSWORD},DB_DATABASE=${DB_DATABASE},PRODUCTS_API_URL=${PRODUCTS_API_URL} \
 		--memory=1Gi
